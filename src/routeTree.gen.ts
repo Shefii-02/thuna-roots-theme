@@ -9,7 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VolunteerRouteImport } from './routes/volunteer'
+import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as DonateRouteImport } from './routes/donate'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StoriesIndexRouteImport } from './routes/stories.index'
@@ -19,9 +23,29 @@ import { Route as StoriesSlugRouteImport } from './routes/stories.$slug'
 import { Route as InitiativesSlugRouteImport } from './routes/initiatives.$slug'
 import { Route as CampaignsSlugRouteImport } from './routes/campaigns.$slug'
 
+const VolunteerRoute = VolunteerRouteImport.update({
+  id: '/volunteer',
+  path: '/volunteer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerRoute = PartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImpactRoute = ImpactRouteImport.update({
   id: '/impact',
   path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -68,7 +92,11 @@ const CampaignsSlugRoute = CampaignsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/impact': typeof ImpactRoute
+  '/partner': typeof PartnerRoute
+  '/volunteer': typeof VolunteerRoute
   '/campaigns/$slug': typeof CampaignsSlugRoute
   '/initiatives/$slug': typeof InitiativesSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
@@ -79,7 +107,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/impact': typeof ImpactRoute
+  '/partner': typeof PartnerRoute
+  '/volunteer': typeof VolunteerRoute
   '/campaigns/$slug': typeof CampaignsSlugRoute
   '/initiatives/$slug': typeof InitiativesSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
@@ -91,7 +123,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/impact': typeof ImpactRoute
+  '/partner': typeof PartnerRoute
+  '/volunteer': typeof VolunteerRoute
   '/campaigns/$slug': typeof CampaignsSlugRoute
   '/initiatives/$slug': typeof InitiativesSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
@@ -104,7 +140,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
+    | '/donate'
     | '/impact'
+    | '/partner'
+    | '/volunteer'
     | '/campaigns/$slug'
     | '/initiatives/$slug'
     | '/stories/$slug'
@@ -115,7 +155,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contact'
+    | '/donate'
     | '/impact'
+    | '/partner'
+    | '/volunteer'
     | '/campaigns/$slug'
     | '/initiatives/$slug'
     | '/stories/$slug'
@@ -126,7 +170,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
+    | '/donate'
     | '/impact'
+    | '/partner'
+    | '/volunteer'
     | '/campaigns/$slug'
     | '/initiatives/$slug'
     | '/stories/$slug'
@@ -138,7 +186,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  DonateRoute: typeof DonateRoute
   ImpactRoute: typeof ImpactRoute
+  PartnerRoute: typeof PartnerRoute
+  VolunteerRoute: typeof VolunteerRoute
   CampaignsSlugRoute: typeof CampaignsSlugRoute
   InitiativesSlugRoute: typeof InitiativesSlugRoute
   StoriesSlugRoute: typeof StoriesSlugRoute
@@ -149,11 +201,39 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/volunteer': {
+      id: '/volunteer'
+      path: '/volunteer'
+      fullPath: '/volunteer'
+      preLoaderRoute: typeof VolunteerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner': {
+      id: '/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof PartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/impact': {
       id: '/impact'
       path: '/impact'
       fullPath: '/impact'
       preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -218,7 +298,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  DonateRoute: DonateRoute,
   ImpactRoute: ImpactRoute,
+  PartnerRoute: PartnerRoute,
+  VolunteerRoute: VolunteerRoute,
   CampaignsSlugRoute: CampaignsSlugRoute,
   InitiativesSlugRoute: InitiativesSlugRoute,
   StoriesSlugRoute: StoriesSlugRoute,
