@@ -57,7 +57,7 @@ export const Route = createFileRoute("/initiatives/$slug")({
 });
 
 function InitiativeDetail() {
-  const { initiative } = Route.useLoaderData();
+  const { initiative } = Route.useLoaderData() as { initiative: import("@/types").Initiative };
   const accent = accentClasses[initiative.accent];
   const Icon = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
     initiative.icon

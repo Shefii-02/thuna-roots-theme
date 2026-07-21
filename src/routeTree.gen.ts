@@ -9,38 +9,160 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
+import { Route as InitiativesIndexRouteImport } from './routes/initiatives.index'
+import { Route as CampaignsIndexRouteImport } from './routes/campaigns.index'
+import { Route as StoriesSlugRouteImport } from './routes/stories.$slug'
+import { Route as InitiativesSlugRouteImport } from './routes/initiatives.$slug'
+import { Route as CampaignsSlugRouteImport } from './routes/campaigns.$slug'
 
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/stories/',
+  path: '/stories/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InitiativesIndexRoute = InitiativesIndexRouteImport.update({
+  id: '/initiatives/',
+  path: '/initiatives/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampaignsIndexRoute = CampaignsIndexRouteImport.update({
+  id: '/campaigns/',
+  path: '/campaigns/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoriesSlugRoute = StoriesSlugRouteImport.update({
+  id: '/stories/$slug',
+  path: '/stories/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InitiativesSlugRoute = InitiativesSlugRouteImport.update({
+  id: '/initiatives/$slug',
+  path: '/initiatives/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampaignsSlugRoute = CampaignsSlugRouteImport.update({
+  id: '/campaigns/$slug',
+  path: '/campaigns/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/impact': typeof ImpactRoute
+  '/campaigns/$slug': typeof CampaignsSlugRoute
+  '/initiatives/$slug': typeof InitiativesSlugRoute
+  '/stories/$slug': typeof StoriesSlugRoute
+  '/campaigns/': typeof CampaignsIndexRoute
+  '/initiatives/': typeof InitiativesIndexRoute
+  '/stories/': typeof StoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/impact': typeof ImpactRoute
+  '/campaigns/$slug': typeof CampaignsSlugRoute
+  '/initiatives/$slug': typeof InitiativesSlugRoute
+  '/stories/$slug': typeof StoriesSlugRoute
+  '/campaigns': typeof CampaignsIndexRoute
+  '/initiatives': typeof InitiativesIndexRoute
+  '/stories': typeof StoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/impact': typeof ImpactRoute
+  '/campaigns/$slug': typeof CampaignsSlugRoute
+  '/initiatives/$slug': typeof InitiativesSlugRoute
+  '/stories/$slug': typeof StoriesSlugRoute
+  '/campaigns/': typeof CampaignsIndexRoute
+  '/initiatives/': typeof InitiativesIndexRoute
+  '/stories/': typeof StoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/impact'
+    | '/campaigns/$slug'
+    | '/initiatives/$slug'
+    | '/stories/$slug'
+    | '/campaigns/'
+    | '/initiatives/'
+    | '/stories/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/impact'
+    | '/campaigns/$slug'
+    | '/initiatives/$slug'
+    | '/stories/$slug'
+    | '/campaigns'
+    | '/initiatives'
+    | '/stories'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/impact'
+    | '/campaigns/$slug'
+    | '/initiatives/$slug'
+    | '/stories/$slug'
+    | '/campaigns/'
+    | '/initiatives/'
+    | '/stories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ImpactRoute: typeof ImpactRoute
+  CampaignsSlugRoute: typeof CampaignsSlugRoute
+  InitiativesSlugRoute: typeof InitiativesSlugRoute
+  StoriesSlugRoute: typeof StoriesSlugRoute
+  CampaignsIndexRoute: typeof CampaignsIndexRoute
+  InitiativesIndexRoute: typeof InitiativesIndexRoute
+  StoriesIndexRoute: typeof StoriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +170,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/': {
+      id: '/stories/'
+      path: '/stories'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/initiatives/': {
+      id: '/initiatives/'
+      path: '/initiatives'
+      fullPath: '/initiatives/'
+      preLoaderRoute: typeof InitiativesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaigns/': {
+      id: '/campaigns/'
+      path: '/campaigns'
+      fullPath: '/campaigns/'
+      preLoaderRoute: typeof CampaignsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stories/$slug': {
+      id: '/stories/$slug'
+      path: '/stories/$slug'
+      fullPath: '/stories/$slug'
+      preLoaderRoute: typeof StoriesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/initiatives/$slug': {
+      id: '/initiatives/$slug'
+      path: '/initiatives/$slug'
+      fullPath: '/initiatives/$slug'
+      preLoaderRoute: typeof InitiativesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaigns/$slug': {
+      id: '/campaigns/$slug'
+      path: '/campaigns/$slug'
+      fullPath: '/campaigns/$slug'
+      preLoaderRoute: typeof CampaignsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ImpactRoute: ImpactRoute,
+  CampaignsSlugRoute: CampaignsSlugRoute,
+  InitiativesSlugRoute: InitiativesSlugRoute,
+  StoriesSlugRoute: StoriesSlugRoute,
+  CampaignsIndexRoute: CampaignsIndexRoute,
+  InitiativesIndexRoute: InitiativesIndexRoute,
+  StoriesIndexRoute: StoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
