@@ -52,7 +52,7 @@ export const Route = createFileRoute("/stories/$slug")({
 });
 
 function StoryDetail() {
-  const { story } = Route.useLoaderData();
+  const { story } = Route.useLoaderData() as { story: import("@/types").Story };
   const initiative = story.initiativeSlug ? getInitiativeBySlug(story.initiativeSlug) : undefined;
   const others = getStories().filter((s) => s.id !== story.id).slice(0, 3);
   const formatted = new Date(story.date).toLocaleDateString(undefined, {

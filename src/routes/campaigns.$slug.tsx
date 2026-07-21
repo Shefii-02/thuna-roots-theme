@@ -40,7 +40,7 @@ export const Route = createFileRoute("/campaigns/$slug")({
 });
 
 function CampaignDetail() {
-  const { campaign } = Route.useLoaderData();
+  const { campaign } = Route.useLoaderData() as { campaign: import("@/types").Campaign };
   const initiative = getInitiativeBySlug(campaign.initiativeSlug);
   const pct = Math.min(100, Math.round((campaign.raised / campaign.goal) * 100));
 
