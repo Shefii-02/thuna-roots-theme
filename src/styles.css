@@ -5,17 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Thuna Foundations design system.
+ * All brand tokens live here. Components use utilities like bg-brand-navy,
+ * text-accent-coral, font-display — never hard-coded hex.
  */
 
 @theme inline {
@@ -26,6 +18,10 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -59,86 +55,136 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Thuna brand colors — expose as utilities like bg-brand-navy, text-accent-coral */
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-deep: var(--brand-navy-deep);
+  --color-brand-navy-soft: var(--brand-navy-soft);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-offwhite: var(--brand-offwhite);
+
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-coral:  var(--accent-coral);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-green:  var(--accent-green);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-pink:   var(--accent-pink);
+  --color-accent-teal:   var(--accent-teal);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+
+  /* Base shadcn tokens tuned to Thuna brand */
+  --background: oklch(0.985 0.008 85);      /* warm off-white */
+  --foreground: oklch(0.18 0.03 260);       /* deep navy ink */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.18 0.03 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.18 0.03 260);
+  --primary: oklch(0.22 0.06 260);          /* navy */
+  --primary-foreground: oklch(0.985 0.008 85);
+  --secondary: oklch(0.96 0.015 85);
+  --secondary-foreground: oklch(0.22 0.06 260);
+  --muted: oklch(0.94 0.012 85);
+  --muted-foreground: oklch(0.42 0.02 260);
+  --accent: oklch(0.94 0.012 85);
+  --accent-foreground: oklch(0.22 0.06 260);
+  --destructive: oklch(0.62 0.24 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.012 85);
+  --input: oklch(0.9 0.012 85);
+  --ring: oklch(0.62 0.15 260);
+
+  --chart-1: oklch(0.68 0.19 60);
+  --chart-2: oklch(0.7 0.14 180);
+  --chart-3: oklch(0.5 0.14 260);
+  --chart-4: oklch(0.82 0.18 85);
+  --chart-5: oklch(0.7 0.22 15);
+
+  --sidebar: oklch(0.985 0.008 85);
+  --sidebar-foreground: oklch(0.18 0.03 260);
+  --sidebar-primary: oklch(0.22 0.06 260);
+  --sidebar-primary-foreground: oklch(0.985 0.008 85);
+  --sidebar-accent: oklch(0.94 0.012 85);
+  --sidebar-accent-foreground: oklch(0.22 0.06 260);
+  --sidebar-border: oklch(0.9 0.012 85);
+  --sidebar-ring: oklch(0.62 0.15 260);
+
+  /* Thuna brand tokens */
+  --brand-navy:      #0B1F3A;
+  --brand-navy-deep: #07152A;
+  --brand-navy-soft: #132A4C;
+  --brand-cream:     #F5EFE4;
+  --brand-offwhite:  #FBF7F0;
+
+  --accent-yellow: #F5C542;
+  --accent-coral:  #F26D5B;
+  --accent-orange: #F28C28;
+  --accent-green:  #3FB27F;
+  --accent-purple: #7A5AF8;
+  --accent-pink:   #EC5D8A;
+  --accent-teal:   #2AB5B5;
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --background: oklch(0.14 0.03 260);
+  --foreground: oklch(0.985 0.008 85);
+  --card: oklch(0.2 0.04 260);
+  --card-foreground: oklch(0.985 0.008 85);
+  --popover: oklch(0.2 0.04 260);
+  --popover-foreground: oklch(0.985 0.008 85);
+  --primary: oklch(0.985 0.008 85);
+  --primary-foreground: oklch(0.14 0.03 260);
+  --secondary: oklch(0.28 0.04 260);
+  --secondary-foreground: oklch(0.985 0.008 85);
+  --muted: oklch(0.28 0.04 260);
+  --muted-foreground: oklch(0.72 0.02 260);
+  --accent: oklch(0.28 0.04 260);
+  --accent-foreground: oklch(0.985 0.008 85);
+  --destructive: oklch(0.7 0.19 22);
+  --destructive-foreground: oklch(0.985 0.008 85);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --ring: oklch(0.55 0.04 260);
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
+  * { border-color: var(--color-border); }
+  html { -webkit-font-smoothing: antialiased; }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01","cv11";
   }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  ::selection { background: var(--accent-yellow); color: var(--brand-navy); }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 80rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+  @media (min-width: 1280px) { padding-inline: 3rem; }
+}
+
+@utility text-balance { text-wrap: balance; }
+@utility text-pretty { text-wrap: pretty; }
+
+/* Slow orbit for hero background rings */
+@keyframes thuna-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes thuna-orbit-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@utility animate-orbit-slow { animation: thuna-orbit 60s linear infinite; }
+@utility animate-orbit-slower { animation: thuna-orbit-rev 90s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit-slow, .animate-orbit-slower { animation: none; }
 }
