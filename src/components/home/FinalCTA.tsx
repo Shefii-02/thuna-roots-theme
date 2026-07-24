@@ -5,7 +5,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
 export function FinalCTA() {
   return (
-    <section className="relative isolate overflow-hidden bg-brand-navy py-24 text-white md:py-32">
+    <section className="relative isolate overflow-hidden relative overflow-hidden bg-gradient-to-br from-[#FF6B6B] via-[#FF8A3D] to-[#F5C518] py-24 text-white md:py-32">
       <OrbitRings className="opacity-60" />
       <div className="pointer-events-none absolute -left-24 bottom-0 h-96 w-96 rounded-full bg-accent-coral/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-accent-yellow/15 blur-3xl" />

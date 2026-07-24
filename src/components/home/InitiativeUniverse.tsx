@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 import * as Icons from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { getInitiatives } from "@/lib/data";
 import { accentClasses } from "@/config/theme";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
@@ -104,10 +106,35 @@ function UniverseOrbit({ initiatives }: { initiatives: Initiative[] }) {
   const N = initiatives.length;
   const radius = 260;
 
+  // Track which initiative is selected/tapped
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const cur = initiatives.find((i) => i.slug === selectedSlug) ?? null;
+
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[720px]">
+      {/* Dashed rotating orbit ring (visual only) */}
+      <motion.svg
+        viewBox="0 0 600 600"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        animate={prefersReduced ? undefined : { rotate: 360 }}
+        transition={{ duration: 90, ease: "linear", repeat: Infinity }}
+      >
+        <circle
+          cx="300"
+          cy="300"
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          className="text-brand-navy/15"
+          strokeWidth="1.5"
+          strokeDasharray="4 10"
+          strokeLinecap="round"
+        />
+      </motion.svg>
+
+      {/* Node layer (rotates the positions, independent of dashed ring) */}
       <motion.div
-        className="absolute inset-0 rounded-full border border-brand-navy/10"
+        className="absolute inset-0 rounded-full"
         animate={prefersReduced ? undefined : { rotate: 360 }}
         transition={{ duration: 120, ease: "linear", repeat: Infinity }}
       >
@@ -119,6 +146,8 @@ function UniverseOrbit({ initiatives }: { initiatives: Initiative[] }) {
             <OrbitNode
               key={i.id}
               initiative={i}
+              isActive={i.slug === selectedSlug}
+              onSelect={() => setSelectedSlug(i.slug === selectedSlug ? null : i.slug)}
               style={{
                 left: `calc(50% + ${x}px)`,
                 top: `calc(50% + ${y}px)`,
@@ -129,10 +158,47 @@ function UniverseOrbit({ initiatives }: { initiatives: Initiative[] }) {
       </motion.div>
 
       {/* Center */}
-      <div className="absolute left-1/2 top-1/2 flex h-52 w-52 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-brand-navy text-center text-white shadow-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-yellow">Thuna</p>
-        <p className="mt-1 font-display text-2xl leading-tight">Together, we stand beside</p>
+      <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#F5C518] to-[#FF8A3D] p-8 text-center shadow-2xl shadow-[#FF8A3D]/40">
+        <div className="font-display text-lg leading-tight text-[#0B1B3D]">THUNA</div>
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-[#0B1B3D]/70">
+          Foundations
+        </div>
+        <p className="mt-1 font-display text-[15px] leading-tight">Together, we stand beside</p>
       </div>
+
+      {/* Details panel — shown when a node is tapped */}
+      <AnimatePresence mode="wait">
+        {cur && (
+          <motion.div
+            key={cur.slug}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}
+            className="absolute left-1/2 top-[62%] w-[380px] -translate-x-1/2 rounded-3xl border border-white/15 bg-brand-navy p-6 text-left backdrop-blur-xl shadow-2xl shadow-black/30"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-3 w-3 rounded-full" style={{ background: cur.accentColor }} />
+              <div className="text-xs font-semibold uppercase tracking-widest text-white/70">
+                {cur.category}
+              </div>
+            </div>
+
+            <div className="mt-2 font-display text-2xl leading-tight text-white">{cur.title}</div>
+
+            <p className="mt-3 text-sm text-white/75">{cur.shortDescription}</p>
+
+            <Link
+              to="/initiatives/$slug"
+              params={{ slug: cur.slug }}
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent-yellow transition hover:brightness-95"
+            >
+              Explore {cur.name}
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -140,9 +206,13 @@ function UniverseOrbit({ initiatives }: { initiatives: Initiative[] }) {
 function OrbitNode({
   initiative,
   style,
+  isActive,
+  onSelect,
 }: {
   initiative: Initiative;
   style: React.CSSProperties;
+  isActive: boolean;
+  onSelect: () => void;
 }) {
   const accent = accentClasses[initiative.accent];
   const Icon = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
@@ -155,23 +225,30 @@ function OrbitNode({
         animate={{ rotate: -360 }}
         transition={{ duration: 120, ease: "linear", repeat: Infinity }}
       >
-        <Link
-          to="/initiatives/$slug"
-          params={{ slug: initiative.slug }}
+        <button
+          type="button"
+          onClick={onSelect}
           className="group flex flex-col items-center"
         >
           <div
             className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-full border border-brand-navy/10 bg-white shadow-md transition group-hover:scale-110",
+              "flex h-16 w-16 items-center justify-center rounded-full border bg-white shadow-md transition group-hover:scale-110",
+              isActive ? "border-2 scale-110" : "border-brand-navy/10",
               accent.text,
             )}
+            style={isActive ? { borderColor: initiative.accentColor } : undefined}
           >
             <Icon className="h-6 w-6" />
           </div>
-          <span className="mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-widest text-brand-navy/80">
+          <span
+            className={cn(
+              "mt-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-widest transition",
+              isActive ? "text-brand-navy" : "text-brand-navy/80",
+            )}
+          >
             {initiative.name}
           </span>
-        </Link>
+        </button>
       </motion.div>
     </div>
   );

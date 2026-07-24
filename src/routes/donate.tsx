@@ -16,6 +16,10 @@ export const Route = createFileRoute("/donate")({
 
 const AMOUNTS = [25, 50, 100, 250, 500];
 
+// Replace with your organization's actual WhatsApp number, in international
+// format without "+", spaces, or dashes — e.g. "919812345678" for India.
+const WHATSAPP_NUMBER = "919539567552";
+
 function DonatePage() {
   const initiatives = getInitiatives();
   const [amount, setAmount] = useState<number | "custom">(100);
@@ -23,6 +27,41 @@ function DonatePage() {
   const [frequency, setFrequency] = useState<"once" | "monthly">("monthly");
   const [initiative, setInitiative] = useState("general");
   const [submitted, setSubmitted] = useState(false);
+
+  // Donor info — lifted into state so we can build the WhatsApp message
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState("");
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const finalAmount = amount === "custom" ? custom : amount;
+    const initiativeLabel =
+      initiative === "general"
+        ? "Where it's needed most"
+        : initiatives.find((i) => i.slug === initiative)?.name ?? initiative;
+
+    const lines = [
+      "Hello Thuna Foundations, I'd like to make a donation:",
+      "",
+      `Amount: ₹${finalAmount}`,
+      `Frequency: ${frequency === "monthly" ? "Monthly" : "One-time"}`,
+      `Directed to: ${initiativeLabel}`,
+      "",
+      `Name: ${fullName}`,
+      `Email: ${email}`,
+      country && `Country: ${country}`,
+      phone && `Phone: ${phone}`,
+    ].filter(Boolean);
+
+    const message = encodeURIComponent(lines.join("\n"));
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
+  }
 
   return (
     <>
@@ -44,14 +83,17 @@ function DonatePage() {
               <div className="rounded-[2rem] bg-brand-cream p-12 text-center">
                 <CheckCircle2 className="mx-auto h-14 w-14 text-accent-green" />
                 <h2 className="mt-6 font-display text-4xl text-brand-navy">Thank you.</h2>
-                <p className="mt-3 text-brand-navy/70">This is a preview — no payment was processed. Payment integration will be added later.</p>
+                <p className="mt-3 text-brand-navy/70">
+                  We've opened WhatsApp with your donation details. Send the message to
+                  confirm with our team — no payment has been processed yet.
+                </p>
                 <button onClick={() => setSubmitted(false)} className="mt-8 rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white">
                   Make another
                 </button>
               </div>
             ) : (
               <form
-                onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+                onSubmit={handleSubmit}
                 className="rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-brand-navy/5 md:p-10"
               >
                 {/* Frequency */}
@@ -70,20 +112,20 @@ function DonatePage() {
 
                 {/* Amount */}
                 <fieldset className="mt-8">
-                  <legend className="text-xs font-semibold uppercase tracking-widest text-brand-navy/60">Amount (USD)</legend>
+                  <legend className="text-xs font-semibold uppercase tracking-widest text-brand-navy/60">Amount (INR)</legend>
                   <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
                     {AMOUNTS.map((a) => (
                       <button type="button" key={a} onClick={() => setAmount(a)}
                         className={cn("rounded-2xl border py-3 font-display text-lg transition",
                           amount === a ? "border-brand-navy bg-brand-navy text-white" : "border-brand-navy/15 text-brand-navy hover:border-brand-navy/40")}>
-                        ${a}
+                        ₹{a}
                       </button>
                     ))}
                   </div>
                   <div className="mt-3 flex items-center gap-3">
                     <label className="text-sm text-brand-navy/70">Or custom:</label>
                     <div className="relative flex-1 max-w-xs">
-                      <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-navy/50">$</span>
+                      <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-navy/50">₹</span>
                       <input
                         type="number" min={1} value={custom}
                         onChange={(e) => { setCustom(e.target.value); setAmount("custom"); }}
@@ -107,16 +149,18 @@ function DonatePage() {
 
                 {/* Donor info */}
                 <fieldset className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <Input label="Full name" required />
-                  <Input label="Email" type="email" required />
-                  <Input label="Country" />
-                  <Input label="Phone (optional)" />
+                  <Input label="Full name" required value={fullName} onChange={setFullName} />
+                  <Input label="Email" type="email" required value={email} onChange={setEmail} />
+                  <Input label="Country" value={country} onChange={setCountry} />
+                  <Input label="Phone (optional)" value={phone} onChange={setPhone} />
                 </fieldset>
 
                 <button type="submit" className="mt-10 w-full rounded-full bg-brand-navy px-6 py-4 text-base font-semibold text-white transition hover:bg-brand-navy-soft">
-                  Complete donation
+                  Complete donation via WhatsApp
                 </button>
-                <p className="mt-3 text-center text-xs text-brand-navy/50">Preview only — no payment is processed.</p>
+                <p className="mt-3 text-center text-xs text-brand-navy/50">
+                  Preview only — this opens WhatsApp with your details, no payment is processed here.
+                </p>
               </form>
             )}
           </div>
@@ -143,12 +187,29 @@ function DonatePage() {
   );
 }
 
-function Input({ label, type = "text", required }: { label: string; type?: string; required?: boolean }) {
+function Input({
+  label,
+  type = "text",
+  required,
+  value,
+  onChange,
+}: {
+  label: string;
+  type?: string;
+  required?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
     <label className="block">
       <span className="text-xs font-semibold uppercase tracking-widest text-brand-navy/60">{label}{required && " *"}</span>
-      <input type={type} required={required}
-        className="mt-2 w-full rounded-2xl border border-brand-navy/15 bg-white px-4 py-3 text-brand-navy focus:border-brand-navy focus:outline-none" />
+      <input
+        type={type}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-2 w-full rounded-2xl border border-brand-navy/15 bg-white px-4 py-3 text-brand-navy focus:border-brand-navy focus:outline-none"
+      />
     </label>
   );
 }

@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import { mainNav } from "@/config/navigation";
 import { brand } from "@/config/theme";
 import { cn } from "@/lib/utils";
-import { ThunaMark } from "@/components/shared/ThunaMark";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,23 +18,41 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
+
+  const isDark = scrolled || open;
 
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled || open
+        isDark
           ? "bg-brand-offwhite/85 backdrop-blur-md border-b border-brand-navy/5"
           : "bg-transparent",
       )}
     >
       <div className="container-page flex h-16 items-center justify-between md:h-20">
         <Link to="/" className="flex items-center gap-2.5 group" onClick={() => setOpen(false)}>
-          <ThunaMark className="h-9 w-9 text-brand-navy transition-transform group-hover:rotate-45" />
-          <span className="font-display text-lg font-semibold tracking-tight text-brand-navy">
-            {brand.name}
+          <span className="relative block w-72 shrink-0">
+            <img
+              src="/thuna_logo_light.png"
+              alt={brand.name}
+              className={cn(
+                "absolute inset-0 h-16 p-0 m-0 object-contain transition-opacity duration-300 ",
+                isDark ? "opacity-0" : "opacity-100",
+              )}
+            />
+            <img
+              src="/thuna_logo_dark.png"
+              alt={brand.name}
+              className={cn(
+                "absolute1 inset-0 h-16 p-0 m-0 object-contain transition-opacity duration-300 ",
+                isDark ? "opacity-100" : "opacity-0",
+              )}
+            />
           </span>
         </Link>
 
@@ -44,8 +61,15 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm font-medium text-brand-navy/75 transition hover:text-brand-navy"
-              activeProps={{ className: "text-brand-navy" }}
+              className={cn(
+                "text-sm font-medium transition",
+                isDark
+                  ? "text-brand-navy/75 hover:text-brand-navy"
+                  : "text-white/85 hover:text-white",
+              )}
+              activeProps={{
+                className: isDark ? "text-brand-navy" : "text-white",
+              }}
             >
               {item.label}
             </Link>
