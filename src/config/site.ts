@@ -8,7 +8,7 @@ export const site = {
   locale: "en",
   email: "hello@thunafoundations.org",
   phone: "+91 95395 67552",
-  address: "Door No No:20/555/A, Chembikkal, Kuttippuram, Malappuram District, Kerala-679571";
+  address: "Door No No:20/555/A, Chembikkal, Kuttippuram, Malappuram District, Kerala-679571",
   social: {
     twitter: "@thunafoundations",
     instagram: "@thunafoundations",
