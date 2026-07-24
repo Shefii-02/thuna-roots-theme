@@ -1,14 +1,14 @@
 export const site = {
-  name: "Thuna Foundations",
-  legalName: "Thuna Foundations",
+  name: "Thuna Foundations Charity Trust | Together, We Stand Beside People",
+  legalName: "Thuna Foundations Charity Trust",
   tagline: "Together, We Stand Beside People.",
   description:
-    "Thuna Foundations supports people, strengthens communities, and encourages positive social change through ten connected initiatives.",
+    "Together, We Stand Beside People. Building stronger people, healthier communities and a more hopeful future — together.",
   url: "", // set once a project URL exists
   locale: "en",
   email: "hello@thunafoundations.org",
-  phone: "+1 (000) 000-0000",
-  address: "Community House, Global",
+  phone: "+91 95395 67552",
+  address: "Door No No:20/555/A, Chembikkal, Kuttippuram, Malappuram District, Kerala-679571";
   social: {
     twitter: "@thunafoundations",
     instagram: "@thunafoundations",
