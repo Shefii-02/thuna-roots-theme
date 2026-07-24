@@ -56,10 +56,10 @@ export function HeroSection() {
     prefersReduced
       ? {}
       : {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.8, delay, ease: [0.22, 0.61, 0.36, 1] as const },
-      };
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.8, delay, ease: [0.22, 0.61, 0.36, 1] as const },
+        };
 
   return (
     <section className="relative isolate overflow-hidden bg-brand-navy text-white pt-28 pb-24 md:pt-40 md:pb-32">
@@ -117,7 +117,10 @@ export function HeroSection() {
           </motion.div>
 
           {/* Small stat row */}
-          <motion.div {...anim(0.4)} className="mt-16 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4">
+          <motion.div
+            {...anim(0.4)}
+            className="mt-16 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4"
+          >
             {[
               ["10", "Initiatives"],
               ["640+", "Communities"],
@@ -179,8 +182,9 @@ export function HeroSection() {
                   key={src}
                   aria-label={`Show image ${idx + 1}`}
                   onClick={() => setActiveIndex(idx)}
-                  className={`h-1.5 rounded-full transition-all ${idx === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/40"
-                    }`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    idx === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/40"
+                  }`}
                 />
               ))}
             </div>
@@ -220,7 +224,10 @@ export function HeroSection() {
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2">
                 {[images.storyStudent, images.storyMother, images.storyElder].map((src) => (
-                  <div key={src} className="h-8 w-8 overflow-hidden rounded-full border-2 border-brand-navy">
+                  <div
+                    key={src}
+                    className="h-8 w-8 overflow-hidden rounded-full border-2 border-brand-navy"
+                  >
                     <img src={src} alt="" className="h-full w-full object-cover" />
                   </div>
                 ))}

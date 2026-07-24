@@ -21,7 +21,12 @@ export function InitiativeUniverse() {
         <ScrollReveal>
           <SectionHeading
             eyebrow="10 Initiatives · One Purpose"
-            title={<>A connected ecosystem of <em className="not-italic text-accent-coral">people standing beside people.</em></>}
+            title={
+              <>
+                A connected ecosystem of{" "}
+                <em className="not-italic text-accent-coral">people standing beside people.</em>
+              </>
+            }
             description="Each initiative is a distinct promise — health, learning, livelihood, dignity, hope. Together they form one purpose: no one stands alone."
           />
         </ScrollReveal>
@@ -56,7 +61,11 @@ export function InitiativeUniverse() {
               "col-span-3",
             ];
             return (
-              <ScrollReveal key={i.id} delay={idx * 0.03} className={cn(spans[idx] ?? "col-span-2")}>
+              <ScrollReveal
+                key={i.id}
+                delay={idx * 0.03}
+                className={cn(spans[idx] ?? "col-span-2")}
+              >
                 <InitiativeTile initiative={i} large={idx === 0} />
               </ScrollReveal>
             );
@@ -81,22 +90,40 @@ function InitiativeTile({ initiative, large }: { initiative: Initiative; large?:
         large && "md:p-10",
       )}
     >
-      <div className={cn("mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl", accent.bgSoft, accent.text)}>
+      <div
+        className={cn(
+          "mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl",
+          accent.bgSoft,
+          accent.text,
+        )}
+      >
         <Icon className="h-6 w-6" />
       </div>
       <p className="text-xs font-semibold uppercase tracking-widest text-brand-navy/50">
         {initiative.category}
       </p>
-      <h3 className={cn("mt-2 font-display text-brand-navy", large ? "text-3xl md:text-4xl" : "text-xl md:text-2xl")}>
+      <h3
+        className={cn(
+          "mt-2 font-display text-brand-navy",
+          large ? "text-3xl md:text-4xl" : "text-xl md:text-2xl",
+        )}
+      >
         {initiative.name}
       </h3>
       <p className="mt-1 text-sm text-brand-navy/60">{initiative.title}</p>
-      <p className={cn("mt-4 text-brand-navy/70", large ? "text-base" : "text-sm")}>{initiative.shortDescription}</p>
+      <p className={cn("mt-4 text-brand-navy/70", large ? "text-base" : "text-sm")}>
+        {initiative.shortDescription}
+      </p>
       <div className={cn("mt-auto flex items-center gap-2 pt-6 text-sm font-semibold", accent.text)}>
         Explore
         <Icons.ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </div>
-      <div className={cn("absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl opacity-30 transition-opacity group-hover:opacity-60", accent.bg)} />
+      <div
+        className={cn(
+          "absolute -right-16 -top-16 h-40 w-40 rounded-full blur-3xl opacity-30 transition-opacity group-hover:opacity-60",
+          accent.bg,
+        )}
+      />
     </Link>
   );
 }
@@ -225,11 +252,7 @@ function OrbitNode({
         animate={{ rotate: -360 }}
         transition={{ duration: 120, ease: "linear", repeat: Infinity }}
       >
-        <button
-          type="button"
-          onClick={onSelect}
-          className="group flex flex-col items-center"
-        >
+        <button type="button" onClick={onSelect} className="group flex flex-col items-center">
           <div
             className={cn(
               "flex h-16 w-16 items-center justify-center rounded-full border bg-white shadow-md transition group-hover:scale-110",

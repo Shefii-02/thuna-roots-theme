@@ -14,9 +14,11 @@ export function MissionSection() {
               className="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-xl"
             />
             <div className="absolute -bottom-10 -right-6 hidden max-w-xs rounded-3xl border border-black/5 bg-white p-6 shadow-xl md:block">
-            <div className="font-display text-4xl text-[#0B1B3D]">2016</div>
-            <div className="mt-1 text-sm text-[#5B6178]">The year Thuna was founded around one simple idea — people supporting people.</div>
-          </div>
+              <div className="font-display text-4xl text-[#0B1B3D]">2016</div>
+              <div className="mt-1 text-sm text-[#5B6178]">
+                The year Thuna was founded around one simple idea — people supporting people.
+              </div>
+            </div>
             <div className="absolute -top-6 -left-10 hidden h-24 w-24 items-center justify-center rounded-full bg-accent-yellow text-brand-navy shadow-lg md:flex">
               <span className="font-display text-2xl">Thuna</span>
             </div>
@@ -37,9 +39,9 @@ export function MissionSection() {
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-navy/75 text-pretty">
-              Every person needs support at some point in life. Sometimes it is care.
-              Sometimes it is guidance, opportunity, protection, or simply the
-              confidence that someone is willing to stand beside us.
+              Every person needs support at some point in life. Sometimes it is care,
+              sometimes it is guidance, opportunity, protection, or simply the confidence
+              that someone is willing to stand beside us.
             </p>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-brand-navy/75 text-pretty">
               Thuna Foundations brings people and resources together to turn compassion

@@ -6,11 +6,12 @@ import { cn } from "@/lib/utils";
 import { CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/donate")({
-  head: () => pageMeta({
-    title: "Donate",
-    description: "Make a one-time or monthly donation to support Thuna Foundations.",
-    path: "/donate",
-  }),
+  head: () =>
+    pageMeta({
+      title: "Donate",
+      description: "Make a one-time or monthly donation to support Thuna Foundations.",
+      path: "/donate",
+    }),
   component: DonatePage,
 });
 
@@ -84,7 +85,7 @@ function DonatePage() {
                 <CheckCircle2 className="mx-auto h-14 w-14 text-accent-green" />
                 <h2 className="mt-6 font-display text-4xl text-brand-navy">Thank you.</h2>
                 <p className="mt-3 text-brand-navy/70">
-                  We've opened WhatsApp with your donation details. Send the message to
+                  We&apos;ve opened WhatsApp with your donation details. Send the message to
                   confirm with our team — no payment has been processed yet.
                 </p>
                 <button onClick={() => setSubmitted(false)} className="mt-8 rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white">

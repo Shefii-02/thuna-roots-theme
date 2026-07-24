@@ -12,11 +12,12 @@ import { pageMeta } from "@/lib/seo";
 import { site } from "@/config/site";
 
 export const Route = createFileRoute("/")({
-  head: () => pageMeta({
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    path: "/",
-  }),
+  head: () =>
+    pageMeta({
+      title: `${site.name} — ${site.tagline}`,
+      description: site.description,
+      path: "/",
+    }),
   component: Index,
 });
 
