@@ -79,7 +79,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             to="/donate"
-            className="hidden rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy-soft md:inline-flex"
+            className="hidden rounded-full bg-gradient-to-br from-[#FF6B6B] via-[#FF8A3D] to-[#F5C518] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy-soft md:inline-flex"
           >
             Donate
           </Link>

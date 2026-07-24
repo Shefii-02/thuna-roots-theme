@@ -10,9 +10,9 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3">
-              <img src="/thuna_logo.png" alt={brand.name} className="h-10 w-10 object-contain" />
-              <span className="font-display text-xl">{brand.name}</span>
+              <img src="/thuna_logo_light.png" alt={brand.name} className="w-52 object-contain" />
             </div>
+            {/* <span className="font-display text-xl">{brand.name}</span> */}
             <p className="mt-6 max-w-md font-display text-2xl leading-snug text-white">
               {brand.tagline}
             </p>
