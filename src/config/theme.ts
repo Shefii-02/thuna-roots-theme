@@ -41,14 +41,22 @@ export const accentClasses: Record<
     hex: string;
   }
 > = {
-  navy:   { bg: "bg-brand-navy",   bgSoft: "bg-brand-navy/10",   text: "text-brand-navy",   border: "border-brand-navy",   ring: "ring-brand-navy",   gradient: "from-brand-navy to-brand-navy-soft",       hex: palette.navy },
-  yellow: { bg: "bg-accent-yellow",bgSoft: "bg-accent-yellow/15",text: "text-accent-yellow",border: "border-accent-yellow",ring: "ring-accent-yellow",gradient: "from-accent-yellow to-accent-orange",       hex: palette.yellow },
-  coral:  { bg: "bg-accent-coral", bgSoft: "bg-accent-coral/15", text: "text-accent-coral", border: "border-accent-coral", ring: "ring-accent-coral", gradient: "from-accent-coral to-accent-pink",         hex: palette.coral },
-  orange: { bg: "bg-accent-orange",bgSoft: "bg-accent-orange/15",text: "text-accent-orange",border: "border-accent-orange",ring: "ring-accent-orange",gradient: "from-accent-orange to-accent-yellow",      hex: palette.orange },
-  green:  { bg: "bg-accent-green", bgSoft: "bg-accent-green/15", text: "text-accent-green", border: "border-accent-green", ring: "ring-accent-green", gradient: "from-accent-green to-accent-teal",         hex: palette.green },
-  purple: { bg: "bg-accent-purple",bgSoft: "bg-accent-purple/15",text: "text-accent-purple",border: "border-accent-purple",ring: "ring-accent-purple",gradient: "from-accent-purple to-accent-pink",        hex: palette.purple },
-  pink:   { bg: "bg-accent-pink",  bgSoft: "bg-accent-pink/15",  text: "text-accent-pink",  border: "border-accent-pink",  ring: "ring-accent-pink",  gradient: "from-accent-pink to-accent-purple",        hex: palette.pink },
-  teal:   { bg: "bg-accent-teal",  bgSoft: "bg-accent-teal/15",  text: "text-accent-teal",  border: "border-accent-teal",  ring: "ring-accent-teal",  gradient: "from-accent-teal to-accent-green",         hex: palette.teal },
+  navy: {
+    bg: "bg-brand-navy",
+    bgSoft: "bg-brand-navy/10",
+    text: "text-brand-navy",
+    border: "border-brand-navy",
+    ring: "ring-brand-navy",
+    gradient: "from-brand-navy to-brand-navy-soft",
+    hex: palette.navy,
+  },
+  yellow: { bg: "bg-accent-yellow", bgSoft: "bg-accent-yellow/15", text: "text-accent-yellow", border: "border-accent-yellow", ring: "ring-accent-yellow", gradient: "from-accent-yellow to-accent-orange", hex: palette.yellow },
+  coral: { bg: "bg-accent-coral", bgSoft: "bg-accent-coral/15", text: "text-accent-coral", border: "border-accent-coral", ring: "ring-accent-coral", gradient: "from-accent-coral to-accent-pink", hex: palette.coral },
+  orange: { bg: "bg-accent-orange", bgSoft: "bg-accent-orange/15", text: "text-accent-orange", border: "border-accent-orange", ring: "ring-accent-orange", gradient: "from-accent-orange to-accent-yellow", hex: palette.orange },
+  green: { bg: "bg-accent-green", bgSoft: "bg-accent-green/15", text: "text-accent-green", border: "border-accent-green", ring: "ring-accent-green", gradient: "from-accent-green to-accent-teal", hex: palette.green },
+  purple: { bg: "bg-accent-purple", bgSoft: "bg-accent-purple/15", text: "text-accent-purple", border: "border-accent-purple", ring: "ring-accent-purple", gradient: "from-accent-purple to-accent-pink", hex: palette.purple },
+  pink: { bg: "bg-accent-pink", bgSoft: "bg-accent-pink/15", text: "text-accent-pink", border: "border-accent-pink", ring: "ring-accent-pink", gradient: "from-accent-pink to-accent-purple", hex: palette.pink },
+  teal: { bg: "bg-accent-teal", bgSoft: "bg-accent-teal/15", text: "text-accent-teal", border: "border-accent-teal", ring: "ring-accent-teal", gradient: "from-accent-teal to-accent-green", hex: palette.teal },
 };
 
 export const typography = {
