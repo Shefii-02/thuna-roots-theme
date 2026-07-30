@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 
+
+
 // ---------------------------------------------------------------------
 // THUNA FOUNDATIONS — PRIVACY POLICY (route: /privacy)
 // Matches the brand system used across the rest of the site: deep navy,
