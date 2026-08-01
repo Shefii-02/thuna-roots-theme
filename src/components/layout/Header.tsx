@@ -36,7 +36,7 @@ export function Header() {
     >
       <div className="container-page flex h-16 items-center justify-between md:h-20">
         <Link to="/" className="flex items-center gap-2.5 group" onClick={() => setOpen(false)}>
-          <span className="relative block w-72 shrink-0">
+          <span className="relative block  shrink-0">
             <img
               src="/thuna_logo_light.png"
               alt={brand.name}
@@ -79,13 +79,17 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             to="/donate"
-            className="hidden rounded-full bg-gradient-to-br from-[#FF6B6B] via-[#FF8A3D] to-[#F5C518] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy-soft md:inline-flex"
+            className="hidden23 rounded-full bg-gradient-to-br from-[#FF6B6B] via-[#FF8A3D] to-[#F5C518] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy-soft md:inline-flex"
           >
             Donate
           </Link>
           <button
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-navy md:hidden"
+            className={cn(
+              "inline-flex h-10 w-10 items-center justify-center rounded-full",
+              isDark ? "text-brand-navy" : "text-white",
+              "md:hidden",
+            )}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
